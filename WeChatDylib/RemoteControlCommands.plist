@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<array>
+		<dict>
+			<key>function</key>
+			<string>屏幕保护</string>
+			<key>enable</key>
+			<false/>
+			<key>command</key>
+			<string>#remote.screensaver</string>
+		</dict>
+		<dict>
+			<key>function</key>
+			<string>锁屏</string>
+			<key>enable</key>
+			<true/>
+			<key>command</key>
+			<string>#remote.lockscreen</string>
+		</dict>
+		<dict>
+			<key>function</key>
+			<string>休眠</string>
+			<key>enable</key>
+			<true/>
+			<key>command</key>
+			<string>#remote.sleep</string>
+		</dict>
+		<dict>
+			<key>function</key>
+			<string>关机</string>
+			<key>enable</key>
+			<true/>
+			<key>command</key>
+			<string>#remote.shutdown</string>
+		</dict>
+		<dict>
+			<key>function</key>
+			<string>重启</string>
+			<key>enable</key>
+			<false/>
+			<key>command</key>
+			<string>#remote.restart</string>
+		</dict>
+		<dict>
+			<key>function</key>
+			<string>清空废纸篓</string>
+			<key>enable</key>
+			<false/>
+			<key>command</key>
+			<string>#remote.emptytrash</string>
+		</dict>
+	</array>
+</array>
+</plist>
