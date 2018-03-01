@@ -661,12 +661,16 @@ CHOptimizedMethod1(self, void, CMessageMgr, onRevokeMsg, CMessageWrap *, arg1)
         if ([arg1.m_nsContent rangeOfString:@"<session>"].location == NSNotFound) { return; }
         if ([arg1.m_nsContent rangeOfString:@"<replacemsg>"].location == NSNotFound) { return; }
         
-        NSString *(^parseSession)() = ^NSString *() {
-            NSUInteger startIndex = [arg1.m_nsContent rangeOfString:@"<session>"].location + @"<session>".length;
-            NSUInteger endIndex = [arg1.m_nsContent rangeOfString:@"</session>"].location;
+        NSString *msgContent = arg1.m_nsContent;
+        NSString *(^parseParam)(NSString *, NSString *,NSString *) = ^NSString *(NSString *content, NSString *paramBegin,NSString *paramEnd) {
+            NSUInteger startIndex = [content rangeOfString:paramBegin].location + paramBegin.length;
+            NSUInteger endIndex = [content rangeOfString:paramEnd].location;
             NSRange range = NSMakeRange(startIndex, endIndex - startIndex);
-            return [arg1.m_nsContent substringWithRange:range];
+            return [content substringWithRange:range];
         };
+        
+        NSString *session = parseParam(msgContent, @"<session>", @"</session>");
+        NSString *newmsgid = parseParam(msgContent, @"<newmsgid>", @"</newmsgid>");
         
         NSString *(^parseSenderName)() = ^NSString *() {
             NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"<!\\[CDATA\\[(.*?)撤回了一条消息\\]\\]>" options:NSRegularExpressionCaseInsensitive error:nil];
@@ -678,26 +682,29 @@ CHOptimizedMethod1(self, void, CMessageMgr, onRevokeMsg, CMessageWrap *, arg1)
             return [arg1.m_nsContent substringWithRange:[result rangeAtIndex:1]];
         };
         
+        
+        CContactMgr *contactMgr = [[objc_getClass("MMServiceCenter") defaultCenter] getService:objc_getClass("CContactMgr")];
+        CContact *selfContact = [contactMgr getSelfContact];
+        CMessageWrap *revokemsg = [self GetMsg:session n64SvrID:[newmsgid integerValue]];
         CMessageWrap *msgWrap = [[objc_getClass("CMessageWrap") alloc] initWithMsgType:0x2710];
-        BOOL isSender = [objc_getClass("CMessageWrap") isSenderFromMsgWrap:arg1];
         
         NSString *sendContent;
-        if (isSender) {
-            [msgWrap setM_nsFromUsr:arg1.m_nsToUsr];
-            [msgWrap setM_nsToUsr:arg1.m_nsFromUsr];
-            sendContent = @"你撤回一条消息";
-        } else {
+        if ([revokemsg.m_nsFromUsr isEqualToString:selfContact.m_nsUsrName]) {
+            CHSuper1(CMessageMgr, onRevokeMsg, arg1);
+        }
+        else
+        {
             [msgWrap setM_nsToUsr:arg1.m_nsToUsr];
             [msgWrap setM_nsFromUsr:arg1.m_nsFromUsr];
             
             NSString *name = parseSenderName();
             sendContent = [NSString stringWithFormat:@"拦截 %@ 的一条撤回消息", name ? name : arg1.m_nsFromUsr];
+            [msgWrap setM_uiStatus:0x4];
+            [msgWrap setM_nsContent:sendContent];
+            [msgWrap setM_uiCreateTime:[arg1 m_uiCreateTime]];
+            
+            [self AddLocalMsg:session MsgWrap:msgWrap fixTime:0x1 NewMsgArriveNotify:0x0];
         }
-        [msgWrap setM_uiStatus:0x4];
-        [msgWrap setM_nsContent:sendContent];
-        [msgWrap setM_uiCreateTime:[arg1 m_uiCreateTime]];
-        
-        [self AddLocalMsg:parseSession() MsgWrap:msgWrap fixTime:0x1 NewMsgArriveNotify:0x0];
     }
 }
 
