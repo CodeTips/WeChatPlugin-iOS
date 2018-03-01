@@ -1,4 +1,4 @@
-#line 1 "/Users/timeaside/Desktop/WeChatPlugin-iOS/WeChatDylib/HookProtected.xm"
+#line 1 "/Users/linden/Documents/GitHub/WeChatPlugin-iOS/WeChatDylib/HookProtected.xm"
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
@@ -23,10 +23,10 @@
 #define _LOGOS_RETURN_RETAINED
 #endif
 
-@class WWKBaseObject; @class ManualAuthAesReqData; @class ClientCheckMgr; 
+@class ManualAuthAesReqData; @class ClientCheckMgr; @class WWKBaseObject; 
 static void (*_logos_orig$_ungrouped$ClientCheckMgr$registerAddImageCallBack)(_LOGOS_SELF_TYPE_NORMAL ClientCheckMgr* _LOGOS_SELF_CONST, SEL); static void _logos_method$_ungrouped$ClientCheckMgr$registerAddImageCallBack(_LOGOS_SELF_TYPE_NORMAL ClientCheckMgr* _LOGOS_SELF_CONST, SEL); static void (*_logos_orig$_ungrouped$ClientCheckMgr$checkHookWithSeq$)(_LOGOS_SELF_TYPE_NORMAL ClientCheckMgr* _LOGOS_SELF_CONST, SEL, unsigned int); static void _logos_method$_ungrouped$ClientCheckMgr$checkHookWithSeq$(_LOGOS_SELF_TYPE_NORMAL ClientCheckMgr* _LOGOS_SELF_CONST, SEL, unsigned int); static void (*_logos_orig$_ungrouped$ClientCheckMgr$checkHook$)(_LOGOS_SELF_TYPE_NORMAL ClientCheckMgr* _LOGOS_SELF_CONST, SEL, id); static void _logos_method$_ungrouped$ClientCheckMgr$checkHook$(_LOGOS_SELF_TYPE_NORMAL ClientCheckMgr* _LOGOS_SELF_CONST, SEL, id); static void (*_logos_orig$_ungrouped$ClientCheckMgr$checkConsistency$)(_LOGOS_SELF_TYPE_NORMAL ClientCheckMgr* _LOGOS_SELF_CONST, SEL, id); static void _logos_method$_ungrouped$ClientCheckMgr$checkConsistency$(_LOGOS_SELF_TYPE_NORMAL ClientCheckMgr* _LOGOS_SELF_CONST, SEL, id); static NSString * (*_logos_orig$_ungrouped$ManualAuthAesReqData$bundleId)(_LOGOS_SELF_TYPE_NORMAL ManualAuthAesReqData* _LOGOS_SELF_CONST, SEL); static NSString * _logos_method$_ungrouped$ManualAuthAesReqData$bundleId(_LOGOS_SELF_TYPE_NORMAL ManualAuthAesReqData* _LOGOS_SELF_CONST, SEL); static NSString * (*_logos_orig$_ungrouped$WWKBaseObject$bundleID)(_LOGOS_SELF_TYPE_NORMAL WWKBaseObject* _LOGOS_SELF_CONST, SEL); static NSString * _logos_method$_ungrouped$WWKBaseObject$bundleID(_LOGOS_SELF_TYPE_NORMAL WWKBaseObject* _LOGOS_SELF_CONST, SEL); 
 
-#line 4 "/Users/timeaside/Desktop/WeChatPlugin-iOS/WeChatDylib/HookProtected.xm"
+#line 4 "/Users/linden/Documents/GitHub/WeChatPlugin-iOS/WeChatDylib/HookProtected.xm"
 
 
 static void _logos_method$_ungrouped$ClientCheckMgr$registerAddImageCallBack(_LOGOS_SELF_TYPE_NORMAL ClientCheckMgr* _LOGOS_SELF_CONST __unused self, SEL __unused _cmd) {
@@ -67,4 +67,4 @@ static NSString * _logos_method$_ungrouped$WWKBaseObject$bundleID(_LOGOS_SELF_TY
 
 static __attribute__((constructor)) void _logosLocalInit() {
 {Class _logos_class$_ungrouped$ClientCheckMgr = objc_getClass("ClientCheckMgr"); MSHookMessageEx(_logos_class$_ungrouped$ClientCheckMgr, @selector(registerAddImageCallBack), (IMP)&_logos_method$_ungrouped$ClientCheckMgr$registerAddImageCallBack, (IMP*)&_logos_orig$_ungrouped$ClientCheckMgr$registerAddImageCallBack);MSHookMessageEx(_logos_class$_ungrouped$ClientCheckMgr, @selector(checkHookWithSeq:), (IMP)&_logos_method$_ungrouped$ClientCheckMgr$checkHookWithSeq$, (IMP*)&_logos_orig$_ungrouped$ClientCheckMgr$checkHookWithSeq$);MSHookMessageEx(_logos_class$_ungrouped$ClientCheckMgr, @selector(checkHook:), (IMP)&_logos_method$_ungrouped$ClientCheckMgr$checkHook$, (IMP*)&_logos_orig$_ungrouped$ClientCheckMgr$checkHook$);MSHookMessageEx(_logos_class$_ungrouped$ClientCheckMgr, @selector(checkConsistency:), (IMP)&_logos_method$_ungrouped$ClientCheckMgr$checkConsistency$, (IMP*)&_logos_orig$_ungrouped$ClientCheckMgr$checkConsistency$);Class _logos_class$_ungrouped$ManualAuthAesReqData = objc_getClass("ManualAuthAesReqData"); MSHookMessageEx(_logos_class$_ungrouped$ManualAuthAesReqData, @selector(bundleId), (IMP)&_logos_method$_ungrouped$ManualAuthAesReqData$bundleId, (IMP*)&_logos_orig$_ungrouped$ManualAuthAesReqData$bundleId);Class _logos_class$_ungrouped$WWKBaseObject = objc_getClass("WWKBaseObject"); MSHookMessageEx(_logos_class$_ungrouped$WWKBaseObject, @selector(bundleID), (IMP)&_logos_method$_ungrouped$WWKBaseObject$bundleID, (IMP*)&_logos_orig$_ungrouped$WWKBaseObject$bundleID);} }
-#line 42 "/Users/timeaside/Desktop/WeChatPlugin-iOS/WeChatDylib/HookProtected.xm"
+#line 42 "/Users/linden/Documents/GitHub/WeChatPlugin-iOS/WeChatDylib/HookProtected.xm"

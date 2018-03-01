@@ -217,7 +217,7 @@
             RemoteControlModel *model = commands[i];
             NSString *imageName = [model.command componentsSeparatedByString:@"."].lastObject;
             UIButton *button = [self makeControlButtonWithTitle:model.function image:[UIImage imageNamed:imageName] highlightedImage:[UIImage imageNamed:imageName] target:[RemoteControlManager sharedManager] action:@selector(sendRemoteControlCommand:)];
-            button.frame = CGRectMake(i * 99, 0, button.frame.size.width, button.frame.size.height);
+            button.frame = CGRectMake(i * (81 + (remoteView.frame.size.width - 3 * 81) / 2), 0, button.frame.size.width, button.frame.size.height);
             button.tag = i + 100;
             [remoteView addSubview:button];
         }
